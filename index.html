@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Force Aegis | Ops Console</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="logo-container">
+            <img src="logo.svg" alt="Task Force Aegis Emblem" class="tfa-logo">
+            <h1 class="title">TASK FORCE AEGIS</h1>
+            <h2 class="subtitle">TRUTH. EVIDENCE. JUSTICE. PROTECT. DEFEND. PREVAIL.</h2>
+        </div>
+        
+        <div class="loading-container">
+            <div id="loading-text" class="terminal-text">> INITIALIZING SECURE SESSION...</div>
+            <div class="progress-bar">
+                <div id="progress-bar-inner"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ops-console" class="hidden">
+        <header class="ops-header">
+            <div class="header-left">
+                <img src="logo.svg" alt="TFA Small" class="tfa-logo-small">
+                <span class="header-title">TFA :: OPS CONSOLE v1.0</span>
+            </div>
+            <div class="header-right">
+                <span class="status-indicator"></span>
+                <span class="status-text">ENCRYPTED LINK ACTIVE</span>
+            </div>
+        </header>
+
+        <main class="ops-main">
+            <div class="welcome-block">
+                <h2>WELCOME, INVESTIGATOR.</h2>
+                <p class="ai-status">> AI CORE: ONLINE & STANDING BY.</p>
+            </div>
+
+            <button class="primary-action-btn">[ INITIATE NEW DOSSIER ]</button>
+
+            <div class="nav-grid">
+                <button class="grid-item">ACTIVE CASES</button>
+                <button class="grid-item">EVIDENCE VAULT</button>
+                <button class="grid-item">LEGAL RESEARCH (AI)</button>
+                <button class="grid-item">CASEFORGE INTEGRATION</button>
+                <button class="grid-item">PROJECT VINDEX ARCHIVE</button>
+                <button class="grid-item">SYSTEM SETTINGS</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
