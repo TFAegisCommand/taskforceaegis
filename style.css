@@ -1,242 +1,379 @@
 :root {
-    --bg-matte: #0A0A0A;
-    --surface-gunmetal: #1A1D24;
-    --text-silver: #E0E0E0;
-    --accent-sapphire: #0F52BA;
+    --bg-dark: #03050B;
     --ui-electric: #00E5FF;
+    --ui-sapphire: #0F52BA;
+    --text-main: #E0E0E0;
+    --text-muted: #8892B0;
+    --status-green: #00FF66;
+    --status-warn: #FFB300;
     
     --font-heading: 'Orbitron', sans-serif;
     --font-sub: 'Rajdhani', sans-serif;
     --font-body: 'Roboto', sans-serif;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-matte);
-    color: var(--text-silver);
+    background-color: var(--bg-dark);
+    /* High-tech faint grid background applied universally */
+    background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--text-main);
     font-family: var(--font-body);
-    overflow: hidden;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* ================= SPLASH SCREEN ================= */
-#splash-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     height: 100vh;
     width: 100vw;
-    padding: 10vh 0;
-    background: radial-gradient(circle at center, #111 0%, var(--bg-matte) 100%);
-    transition: opacity 0.8s ease-out;
+    overflow-x: hidden;
+    position: relative;
 }
 
-.logo-container {
-    text-align: center;
-    animation: fadeIn 2s ease-in-out;
+/* Universal Ambient Glow */
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 1000px;
+    background: radial-gradient(circle, rgba(15, 82, 186, 0.15) 0%, rgba(3, 5, 11, 0) 70%);
+    z-index: -1;
+    pointer-events: none;
 }
 
-/* The drop shadow will automatically wrap around the edges of the transparent PNG */
-.tfa-logo {
-    width: 250px;
-    height: auto;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(15, 82, 186, 0.4)); 
-}
-
-.title {
-    font-family: var(--font-heading);
-    color: var(--text-silver);
-    font-size: 2.5rem;
-    letter-spacing: 4px;
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    font-family: var(--font-sub);
-    color: var(--accent-sapphire);
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    opacity: 0.8;
-}
-
-.loading-container {
-    width: 60%;
-    max-width: 600px;
-}
-
-.terminal-text {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    color: var(--ui-electric);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 4px;
-    background-color: var(--surface-gunmetal);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-#progress-bar-inner {
-    height: 100%;
-    width: 0%;
-    background-color: var(--accent-sapphire);
-    box-shadow: 0 0 10px var(--accent-sapphire);
-    transition: width 0.3s linear;
-}
-
-/* ================= OPERATIONS CONSOLE ================= */
-#ops-console {
-    width: 100vw;
-    height: 100vh;
+/* ================= SCREEN MANAGEMENT ================= */
+.active-screen {
     display: flex;
-    flex-direction: column;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
 }
 
-.hidden {
+.hidden-screen {
     display: none !important;
+    opacity: 0;
+}
+
+.fade-out {
+    opacity: 0 !important;
 }
 
 .fade-in {
-    animation: fadeIn 1s ease-in forwards;
+    animation: simpleFadeIn 1s ease-in-out forwards;
+}
+
+/* ================= PHASE 1: SPLASH SCREEN ================= */
+#splash-screen {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+/* 3D Perspective for Top Spin */
+.logo-3d-wrapper {
+    perspective: 1200px; /* Depth of the 3D space */
+    margin-bottom: 20px;
+}
+
+#spinning-logo {
+    width: 250px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.5));
+    /* The core animation: spins wildly, decelerates, and settles over 10 seconds */
+    animation: topSpinSettle 10s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    transform-style: preserve-3d;
+}
+
+.splash-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    letter-spacing: 6px;
+    color: #FFF;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: simpleFadeIn 2s ease forwards;
+    animation-delay: 8s; /* Fades in right as the logo finishes settling */
+}
+
+/* Initiate Button */
+.tactical-btn {
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid var(--ui-electric);
+    color: var(--ui-electric);
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    padding: 15px 40px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.tactical-btn:hover {
+    background: var(--ui-electric);
+    color: var(--bg-dark);
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
+}
+
+.delayed-fade {
+    opacity: 0;
+    visibility: hidden;
+    animation: delayedManifest 1s ease forwards;
+    animation-delay: 10s; /* Exactly 10 seconds: appears when logo settles */
+}
+
+/* ================= PHASE 2: HOMEPAGE / OPS CONSOLE ================= */
+#homepage {
+    flex-direction: column;
+    height: 100vh;
 }
 
 .ops-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background-color: var(--surface-gunmetal);
-    border-bottom: 1px solid rgba(15, 82, 186, 0.3);
+    padding: 20px 40px;
+    background: linear-gradient(180deg, rgba(5, 8, 15, 0.9) 0%, rgba(5, 8, 15, 0) 100%);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
 }
 
-.header-left, .header-right {
+.header-brand {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.tfa-logo-small {
-    width: 45px;
-    height: auto;
-    filter: drop-shadow(0 0 5px rgba(15, 82, 186, 0.5));
+.nav-logo {
+    width: 40px;
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5));
 }
 
-.header-title {
+.nav-title {
     font-family: var(--font-heading);
-    color: var(--text-silver);
-    letter-spacing: 2px;
-}
-
-.status-indicator {
-    width: 10px;
-    height: 10px;
-    background-color: var(--ui-electric);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--ui-electric);
-    animation: pulse 2s infinite;
-}
-
-.status-text {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    color: var(--ui-electric);
-}
-
-.ops-main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-}
-
-.welcome-block {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.welcome-block h2 {
-    font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 1.3rem;
     letter-spacing: 3px;
-    margin-bottom: 10px;
-}
-
-.ai-status {
-    font-family: var(--font-heading);
-    color: var(--accent-sapphire);
-    font-size: 1rem;
-}
-
-.primary-action-btn {
-    background: transparent;
-    border: 2px solid var(--accent-sapphire);
-    color: var(--text-silver);
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    padding: 20px 40px;
-    cursor: pointer;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
-    margin-bottom: 50px;
-    box-shadow: inset 0 0 10px rgba(15, 82, 186, 0.2);
-}
-
-.primary-action-btn:hover {
-    background: rgba(15, 82, 186, 0.2);
-    box-shadow: inset 0 0 20px rgba(15, 82, 186, 0.5), 0 0 20px rgba(15, 82, 186, 0.3);
     color: #FFF;
 }
 
-.nav-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 100%;
-    max-width: 900px;
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-sub);
+    color: var(--status-green);
+    letter-spacing: 2px;
 }
 
-.grid-item {
-    background-color: var(--surface-gunmetal);
-    border: 1px solid rgba(224, 224, 224, 0.1);
-    color: var(--text-silver);
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--status-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--status-green);
+    animation: pulse 2s infinite;
+}
+
+.dashboard-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.dash-module {
+    background: rgba(10, 15, 30, 0.6);
+    border: 1px solid rgba(136, 146, 176, 0.2);
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.dash-module:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 229, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 229, 255, 0.05);
+}
+
+.module-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--ui-electric);
+    letter-spacing: 2px;
+}
+
+.module-content {
+    padding: 25px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.system-msg {
+    font-family: var(--font-body);
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.action-btn {
+    margin-top: auto;
+    background: transparent;
+    border: 1px solid var(--ui-sapphire);
+    color: var(--text-main);
+    padding: 12px;
     font-family: var(--font-sub);
-    font-size: 1.2rem;
-    padding: 25px;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: 0.3s;
+}
+
+.action-btn:hover {
+    background: rgba(15, 82, 186, 0.2);
+    border-color: var(--ui-electric);
+}
+
+.mt-20 { margin-top: 20px; }
+
+/* Dashboard Specific Visuals */
+.pulse-indicator {
+    width: 10px;
+    height: 10px;
+    background: var(--ui-electric);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+.stat-circle {
+    width: 150px;
+    height: 150px;
+    border: 2px dashed var(--ui-electric);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: rotateSlow 20s linear infinite;
+}
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: #FFF;
+    animation: reverseRotate 20s linear infinite; /* Keeps text upright */
+}
+
+.stat-label {
+    font-family: var(--font-sub);
+    color: var(--ui-electric);
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    animation: reverseRotate 20s linear infinite;
+}
+
+.case-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.case-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 3px solid var(--ui-sapphire);
+    font-family: var(--font-sub);
     letter-spacing: 1px;
 }
 
-.grid-item:hover {
-    border-color: var(--accent-sapphire);
-    background-color: rgba(26, 29, 36, 0.8);
-    transform: translateY(-2px);
+.status-tag {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
 }
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadeIn {
+.status-tag.active { background: rgba(0, 255, 102, 0.1); color: var(--status-green); border: 1px solid var(--status-green); }
+.status-tag.pending { background: rgba(255, 179, 0, 0.1); color: var(--status-warn); border: 1px solid var(--status-warn); }
+
+
+/* ================= KEYFRAMES ================= */
+
+/* The 10-Second Spin and Settle Animation */
+@keyframes topSpinSettle {
+    0% {
+        opacity: 0;
+        /* Start small and rotate extremely fast on Y axis (10 full rotations = 3600deg) */
+        transform: rotateY(3600deg) scale(0.3);
+        filter: drop-shadow(0 0 50px rgba(0, 229, 255, 1));
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        /* Lock into standard flat position, full size */
+        transform: rotateY(0deg) scale(1);
+        filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.5));
+    }
+}
+
+@keyframes delayedManifest {
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes simpleFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 @keyframes pulse {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-    100% { opacity: 1; transform: scale(1); }
+    0% { opacity: 1; box-shadow: 0 0 10px currentColor; }
+    50% { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
+    100% { opacity: 1; box-shadow: 0 0 10px currentColor; }
+}
+
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes reverseRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
 }
