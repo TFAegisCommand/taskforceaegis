@@ -45,11 +45,12 @@ body {
     animation: fadeIn 2s ease-in-out;
 }
 
+/* The drop shadow will automatically wrap around the edges of the transparent PNG */
 .tfa-logo {
-    width: 200px;
+    width: 250px;
     height: auto;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(15, 82, 186, 0.4));
+    filter: drop-shadow(0 0 15px rgba(15, 82, 186, 0.4)); 
 }
 
 .title {
@@ -129,7 +130,9 @@ body {
 }
 
 .tfa-logo-small {
-    width: 40px;
+    width: 45px;
+    height: auto;
+    filter: drop-shadow(0 0 5px rgba(15, 82, 186, 0.5));
 }
 
 .header-title {
