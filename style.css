@@ -1,0 +1,239 @@
+:root {
+    --bg-matte: #0A0A0A;
+    --surface-gunmetal: #1A1D24;
+    --text-silver: #E0E0E0;
+    --accent-sapphire: #0F52BA;
+    --ui-electric: #00E5FF;
+    
+    --font-heading: 'Orbitron', sans-serif;
+    --font-sub: 'Rajdhani', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-matte);
+    color: var(--text-silver);
+    font-family: var(--font-body);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================= SPLASH SCREEN ================= */
+#splash-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 10vh 0;
+    background: radial-gradient(circle at center, #111 0%, var(--bg-matte) 100%);
+    transition: opacity 0.8s ease-out;
+}
+
+.logo-container {
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.tfa-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(15, 82, 186, 0.4));
+}
+
+.title {
+    font-family: var(--font-heading);
+    color: var(--text-silver);
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-family: var(--font-sub);
+    color: var(--accent-sapphire);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+.loading-container {
+    width: 60%;
+    max-width: 600px;
+}
+
+.terminal-text {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--ui-electric);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--surface-gunmetal);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#progress-bar-inner {
+    height: 100%;
+    width: 0%;
+    background-color: var(--accent-sapphire);
+    box-shadow: 0 0 10px var(--accent-sapphire);
+    transition: width 0.3s linear;
+}
+
+/* ================= OPERATIONS CONSOLE ================= */
+#ops-console {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in forwards;
+}
+
+.ops-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: var(--surface-gunmetal);
+    border-bottom: 1px solid rgba(15, 82, 186, 0.3);
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tfa-logo-small {
+    width: 40px;
+}
+
+.header-title {
+    font-family: var(--font-heading);
+    color: var(--text-silver);
+    letter-spacing: 2px;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: var(--ui-electric);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--ui-electric);
+    animation: pulse 2s infinite;
+}
+
+.status-text {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    color: var(--ui-electric);
+}
+
+.ops-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.welcome-block {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.welcome-block h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.ai-status {
+    font-family: var(--font-heading);
+    color: var(--accent-sapphire);
+    font-size: 1rem;
+}
+
+.primary-action-btn {
+    background: transparent;
+    border: 2px solid var(--accent-sapphire);
+    color: var(--text-silver);
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    padding: 20px 40px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    margin-bottom: 50px;
+    box-shadow: inset 0 0 10px rgba(15, 82, 186, 0.2);
+}
+
+.primary-action-btn:hover {
+    background: rgba(15, 82, 186, 0.2);
+    box-shadow: inset 0 0 20px rgba(15, 82, 186, 0.5), 0 0 20px rgba(15, 82, 186, 0.3);
+    color: #FFF;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.grid-item {
+    background-color: var(--surface-gunmetal);
+    border: 1px solid rgba(224, 224, 224, 0.1);
+    color: var(--text-silver);
+    font-family: var(--font-sub);
+    font-size: 1.2rem;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+}
+
+.grid-item:hover {
+    border-color: var(--accent-sapphire);
+    background-color: rgba(26, 29, 36, 0.8);
+    transform: translateY(-2px);
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
