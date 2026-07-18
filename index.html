@@ -3,60 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Force Aegis | Ops Console</title>
+    <title>Task Force Aegis | Secure Uplink</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="splash-screen">
-        <div class="logo-container">
-            <img src="logo-512.png" alt="Task Force Aegis Emblem" class="tfa-logo">
-            <h1 class="title">TASK FORCE AEGIS</h1>
-            <h2 class="subtitle">TRUTH. EVIDENCE. JUSTICE. PROTECT. DEFEND. PREVAIL.</h2>
-        </div>
-        
-        <div class="loading-container">
-            <div id="loading-text" class="terminal-text">> INITIALIZING SECURE SESSION...</div>
-            <div class="progress-bar">
-                <div id="progress-bar-inner"></div>
+    <div id="splash-screen" class="active-screen">
+        <div class="splash-content">
+            <div class="logo-3d-wrapper">
+                <img src="logo-512.png" alt="Task Force Aegis Logo" id="spinning-logo">
             </div>
+            
+            <h1 class="splash-title">TASK FORCE AEGIS</h1>
+            
+            <button id="initiate-btn" class="tactical-btn delayed-fade">
+                <span class="btn-text">INITIATE UPLINK</span>
+                <span class="btn-glitch-effect"></span>
+            </button>
         </div>
     </div>
 
-    <div id="ops-console" class="hidden">
+    <div id="homepage" class="hidden-screen">
+        
         <header class="ops-header">
-            <div class="header-left">
-                <img src="logo-192.png" alt="TFA Small" class="tfa-logo-small">
-                <span class="header-title">TFA :: OPS CONSOLE v1.0</span>
+            <div class="header-brand">
+                <img src="logo-192.png" alt="TFA Icon" class="nav-logo">
+                <span class="nav-title">TFA :: COMMAND CENTER</span>
             </div>
-            <div class="header-right">
-                <span class="status-indicator"></span>
-                <span class="status-text">ENCRYPTED LINK ACTIVE</span>
+            <div class="header-status">
+                <span class="status-dot"></span>
+                <span>SECURE SESSION ESTABLISHED</span>
             </div>
         </header>
 
-        <main class="ops-main">
-            <div class="welcome-block">
-                <h2>WELCOME, INVESTIGATOR.</h2>
-                <p class="ai-status">> AI CORE: ONLINE & STANDING BY.</p>
-            </div>
+        <main class="dashboard-grid">
+            
+            <section class="dash-module ai-module">
+                <div class="module-header">
+                    <h2>AI ANALYST</h2>
+                    <div class="pulse-indicator"></div>
+                </div>
+                <div class="module-content">
+                    <p class="system-msg">> Initialization complete.</p>
+                    <p class="system-msg">> Legal libraries synchronized.</p>
+                    <p class="system-msg">> Awaiting investigative parameters...</p>
+                    <button class="action-btn">OPEN QUERY INTERFACE</button>
+                </div>
+            </section>
 
-            <button class="primary-action-btn">[ INITIATE NEW DOSSIER ]</button>
+            <section class="dash-module">
+                <div class="module-header">
+                    <h2>EVIDENCE VAULT</h2>
+                </div>
+                <div class="module-content flex-center">
+                    <div class="stat-circle">
+                        <span class="stat-number">42</span>
+                        <span class="stat-label">SECURED ASSETS</span>
+                    </div>
+                    <button class="action-btn mt-20">ACCESS VAULT</button>
+                </div>
+            </section>
 
-            <div class="nav-grid">
-                <button class="grid-item">ACTIVE CASES</button>
-                <button class="grid-item">EVIDENCE VAULT</button>
-                <button class="grid-item">LEGAL RESEARCH (AI)</button>
-                <button class="grid-item">CASEFORGE INTEGRATION</button>
-                <button class="grid-item">PROJECT VINDEX ARCHIVE</button>
-                <button class="grid-item">SYSTEM SETTINGS</button>
-            </div>
+            <section class="dash-module case-module">
+                <div class="module-header">
+                    <h2>ACTIVE DOSSIERS</h2>
+                </div>
+                <div class="module-content">
+                    <ul class="case-list">
+                        <li><span>PROJECT VINDEX</span> <span class="status-tag active">ACTIVE</span></li>
+                        <li><span>OPERATION CHIMERA</span> <span class="status-tag pending">PENDING</span></li>
+                        <li><span>CASEFORGE INTEGRATION</span> <span class="status-tag active">ACTIVE</span></li>
+                    </ul>
+                    <button class="action-btn mt-20">NEW INVESTIGATION</button>
+                </div>
+            </section>
+
         </main>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-              
-         
