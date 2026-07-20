@@ -8,7 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Global Tactical Scanline Overlay -->
+    <div class="scanlines"></div>
 
+    <!-- PHASE 1: SPLASH SCREEN -->
     <div id="splash-screen" class="active-screen">
         <div class="splash-content">
             <div class="logo-3d-wrapper">
@@ -19,6 +22,7 @@
         </div>
     </div>
 
+    <!-- PHASE 2: MAIN APP TERMINAL -->
     <div id="app-container" class="hidden-screen">
         <header class="ops-header">
             <div class="header-brand">
@@ -26,6 +30,7 @@
                 <span class="nav-title">TFA :: COMMAND CENTER</span>
             </div>
             
+            <!-- Navigation Links -->
             <div class="nav-links">
                 <button onclick="renderView('dashboard')" class="nav-btn">DASHBOARD</button>
                 <button onclick="renderView('vault')" class="nav-btn">EVIDENCE VAULT</button>
@@ -39,16 +44,20 @@
         </header>
 
         <div class="workspace">
+            <!-- Dynamic Content Area -->
             <main id="view-container" class="main-content-area">
-                </main>
+                <!-- Content injected by script.js -->
+            </main>
 
+            <!-- AI Analyst Right Sidebar -->
             <aside class="sidebar-right">
                 <div class="ai-header">
                     <span>AI ANALYST ONLINE</span>
                     <div class="pulse-indicator"></div>
                 </div>
                 <div id="chat-output" class="chat-container">
-                    <div class="chat-message ai-message">Analyst ready. Awaiting investigative parameters...</div>
+                    <!-- Typing effect target -->
+                    <div class="chat-message ai-message" id="ai-greeting"></div>
                 </div>
                 <div class="chat-input-area">
                     <span class="prompt-arrow">></span>
