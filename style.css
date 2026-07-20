@@ -273,7 +273,9 @@ body::before {
     animation: pulse 1.5s infinite;
 }
 
+/* Enhanced Evidence Vault Dual-Ring */
 .stat-circle {
+    position: relative;
     width: 150px;
     height: 150px;
     border: 2px dashed var(--ui-electric);
@@ -283,6 +285,19 @@ body::before {
     justify-content: center;
     align-items: center;
     animation: rotateSlow 20s linear infinite;
+}
+
+.inner-ring {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 116px;
+    height: 116px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--ui-sapphire);
+    border-bottom: 2px solid var(--ui-sapphire);
+    border-radius: 50%;
+    animation: reverseRotate 8s linear infinite; 
 }
 
 .stat-number {
@@ -298,6 +313,38 @@ body::before {
     letter-spacing: 2px;
     font-size: 0.8rem;
     animation: reverseRotate 20s linear infinite;
+}
+
+/* Quick Command Terminal */
+.quick-terminal {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 3px;
+}
+
+.prompt-arrow {
+    color: var(--status-green);
+    font-family: var(--font-heading);
+    margin-right: 10px;
+    animation: pulse 1s infinite;
+}
+
+.quick-terminal input {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-family: var(--font-sub);
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+}
+
+.quick-terminal input::placeholder {
+    color: rgba(136, 146, 176, 0.4);
 }
 
 .case-list {
@@ -328,33 +375,90 @@ body::before {
 .status-tag.active { background: rgba(0, 255, 102, 0.1); color: var(--status-green); border: 1px solid var(--status-green); }
 .status-tag.pending { background: rgba(255, 179, 0, 0.1); color: var(--status-warn); border: 1px solid var(--status-warn); }
 
+/* Live Intel Feed Scrolling Animation */
+.intel-container {
+    overflow: hidden;
+    position: relative;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 2px solid var(--status-warn);
+    padding: 10px;
+}
+
+.intel-feed {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: 'Roboto', monospace;
+    font-size: 0.85rem;
+    animation: scrollFeed 15s linear infinite;
+}
+
+.intel-feed li { color: var(--text-muted); }
+.intel-feed .time { color: #FFF; font-family: var(--font-sub); }
+.intel-feed .alert { color: #FF3366; font-weight: bold; }
+.intel-feed .warn { color: var(--status-warn); font-weight: bold; }
+.intel-feed .info { color: var(--ui-electric); font-weight: bold; }
+
+/* System Diagnostics Progress Bars */
+.flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.diag-bar-container {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.diag-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-sub);
+    font-size: 0.85rem;
+    color: var(--text-main);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.diag-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.diag-fill {
+    height: 100%;
+    background-color: var(--ui-electric);
+    box-shadow: 0 0 10px var(--ui-electric);
+    animation: fillBar 2s ease-out forwards;
+    transform-origin: left;
+    transform: scaleX(0); 
+}
 
 /* ================= KEYFRAMES ================= */
 
-/* The 10-Second Spin and Settle Animation */
 @keyframes topSpinSettle {
     0% {
         opacity: 0;
-        /* Start small and rotate extremely fast on Y axis (10 full rotations = 3600deg) */
         transform: rotateY(3600deg) scale(0.3);
         filter: drop-shadow(0 0 50px rgba(0, 229, 255, 1));
     }
-    10% {
-        opacity: 1;
-    }
+    10% { opacity: 1; }
     100% {
         opacity: 1;
-        /* Lock into standard flat position, full size */
         transform: rotateY(0deg) scale(1);
         filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.5));
     }
 }
 
 @keyframes delayedManifest {
-    to {
-        opacity: 1;
-        visibility: visible;
-    }
+    to { opacity: 1; visibility: visible; }
 }
 
 @keyframes simpleFadeIn {
@@ -376,4 +480,13 @@ body::before {
 @keyframes reverseRotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(-360deg); }
+}
+
+@keyframes scrollFeed {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes fillBar {
+    to { transform: scaleX(1); }
 }
