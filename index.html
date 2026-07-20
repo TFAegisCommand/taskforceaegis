@@ -3,127 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Force Aegis | Secure Uplink</title>
+    <title>Task Force Aegis | Operations Terminal</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div id="splash-screen" class="active-screen">
-        <div class="splash-content">
-            <div class="logo-3d-wrapper">
-                <img src="logo-512.png" alt="Task Force Aegis Logo" id="spinning-logo">
-            </div>
-            
-            <h1 class="splash-title">TASK FORCE AEGIS</h1>
-            
-            <button id="initiate-btn" class="tactical-btn delayed-fade">
-                <span class="btn-text">INITIATE UPLINK</span>
-                <span class="btn-glitch-effect"></span>
-            </button>
-        </div>
+        <div class="logo-3d-wrapper"><img src="logo-512.png" id="spinning-logo"></div>
+        <h1 class="splash-title">TASK FORCE AEGIS</h1>
+        <button id="initiate-btn" class="tactical-btn delayed-fade">INITIATE UPLINK</button>
     </div>
 
-    <div id="homepage" class="hidden-screen">
-        
+    <div id="app-container" class="hidden-screen">
         <header class="ops-header">
-            <div class="header-brand">
-                <img src="logo-192.png" alt="TFA Icon" class="nav-logo">
-                <span class="nav-title">TFA :: COMMAND CENTER</span>
+            <div class="header-brand"><img src="logo-192.png" class="nav-logo"><span>TFA :: COMMAND CENTER</span></div>
+            <div class="nav-links">
+                <button onclick="renderView('dashboard')">DASHBOARD</button>
+                <button onclick="renderView('vault')">EVIDENCE</button>
+                <button onclick="renderView('cases')">DOSSIERS</button>
             </div>
-            <div class="header-status">
-                <span class="status-dot"></span>
-                <span>SECURE SESSION ESTABLISHED</span>
-            </div>
+            <div class="header-status"><span class="status-dot"></span>SECURE LINK ACTIVE</div>
         </header>
 
-        <main class="dashboard-grid">
-            
-            <section class="dash-module ai-module">
-                <div class="module-header">
-                    <h2>AI ANALYST</h2>
-                    <div class="pulse-indicator"></div>
-                </div>
-                <div class="module-content">
-                    <p class="system-msg">> Initialization complete.</p>
-                    <p class="system-msg">> Legal libraries synchronized.</p>
-                    <p class="system-msg">> Awaiting investigative parameters...</p>
-                    
-                    <div class="quick-terminal">
-                        <span class="prompt-arrow">></span>
-                        <input type="text" id="quick-cmd" placeholder="Enter query or command..." autocomplete="off">
-                    </div>
-                    
-                    <button class="action-btn interact-btn" data-target="QUERY INTERFACE">OPEN QUERY INTERFACE</button>
-                </div>
-            </section>
+        <div class="workspace">
+            <main id="view-container">
+                </main>
 
-            <section class="dash-module">
-                <div class="module-header">
-                    <h2>EVIDENCE VAULT</h2>
+            <aside class="sidebar-right">
+                <div class="ai-header">AI ANALYST ONLINE</div>
+                <div id="chat-output" class="chat-container">
+                    <div class="chat-message ai-message">Analyst ready. Query input required.</div>
                 </div>
-                <div class="module-content flex-center">
-                    <div class="stat-circle">
-                        <div class="inner-ring"></div>
-                        <span class="stat-number">42</span>
-                        <span class="stat-label">SECURED ASSETS</span>
-                    </div>
-                    <button class="action-btn mt-20 interact-btn" data-target="VAULT DECRYPTION">ACCESS VAULT</button>
+                <div class="chat-input-area">
+                    <input type="text" id="ai-input" placeholder="Query interface...">
                 </div>
-            </section>
-
-            <section class="dash-module case-module">
-                <div class="module-header">
-                    <h2>ACTIVE DOSSIERS</h2>
-                </div>
-                <div class="module-content">
-                    <ul class="case-list">
-                        <li><span>PROJECT VINDEX</span> <span class="status-tag active">ACTIVE</span></li>
-                        <li><span>OPERATION CHIMERA</span> <span class="status-tag pending">PENDING</span></li>
-                        <li><span>CASEFORGE INTEGRATION</span> <span class="status-tag active">ACTIVE</span></li>
-                    </ul>
-                    <button class="action-btn mt-20 interact-btn" data-target="NEW DOSSIER">NEW INVESTIGATION</button>
-                </div>
-            </section>
-
-            <section class="dash-module">
-                <div class="module-header">
-                    <h2>LIVE INTEL FEED</h2>
-                    <div class="pulse-indicator" style="background-color: var(--status-warn); box-shadow: 0 0 10px var(--status-warn);"></div>
-                </div>
-                <div class="module-content intel-container">
-                    <ul class="intel-feed">
-                        <li><span class="time">[08:42]</span> <span class="alert">SYS:</span> Unauthorized ping detected. Blocked.</li>
-                        <li><span class="time">[08:45]</span> <span class="info">NET:</span> Federal statute database updated.</li>
-                        <li><span class="time">[09:12]</span> <span class="warn">SEC:</span> Biometric mismatch on Node 4.</li>
-                        <li><span class="time">[09:30]</span> <span class="info">AI:</span> Pattern recognized in CaseForge logs.</li>
-                        <li><span class="time">[10:05]</span> <span class="alert">SYS:</span> Encrypted payload received from HQ.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="dash-module">
-                <div class="module-header">
-                    <h2>SYSTEM DIAGNOSTICS</h2>
-                </div>
-                <div class="module-content flex-col-center">
-                    <div class="diag-bar-container">
-                        <div class="diag-label"><span>NETWORK ENCRYPTION</span> <span>98%</span></div>
-                        <div class="diag-track"><div class="diag-fill" style="width: 98%;"></div></div>
-                    </div>
-                    <div class="diag-bar-container">
-                        <div class="diag-label"><span>DATABASE INTEGRITY</span> <span>100%</span></div>
-                        <div class="diag-track"><div class="diag-fill" style="width: 100%;"></div></div>
-                    </div>
-                    <div class="diag-bar-container">
-                        <div class="diag-label"><span>AI CORE CAPACITY</span> <span>74%</span></div>
-                        <div class="diag-track"><div class="diag-fill" style="width: 74%; background-color: var(--status-warn); box-shadow: 0 0 10px var(--status-warn);"></div></div>
-                    </div>
-                    <button class="action-btn mt-20 interact-btn" data-target="DIAGNOSTIC ROUTINE">RUN FULL DIAGNOSTIC</button>
-                </div>
-            </section>
-
-        </main>
+            </aside>
+        </div>
     </div>
 
     <script src="script.js"></script>
